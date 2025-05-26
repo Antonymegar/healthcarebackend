@@ -1,0 +1,6 @@
+Django>=4.2
+djangorestframework
+django-oauth-toolkit
+drf-yasg
+psycopg2-binary
+celery
