@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment variables / secrets
+.env
+.env.*
+
+# Django migration files (optional to ignore)
+# Comment this out if you want to keep migration history
+# */migrations/*.py
+# */migrations/*.pyc
+
+# Static and media files (if not served directly from repo)
+staticfiles/
+media/
+
+# VSCode / JetBrains IDEs / MacOS / system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# SQLite DB (if used for local development)
+db.sqlite3
+
+# Coverage / test / build artifacts
+htmlcov/
+.coverage
+.tox/
+dist/
+build/
+*.log
+*.pot
+*.pyc
+
+# Pytest cache
+.pytest_cache/
+
+# Pipenv / Poetry
+Pipfile.lock
+poetry.lock
