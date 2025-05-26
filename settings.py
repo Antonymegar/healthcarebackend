@@ -9,7 +9,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True") == "True"
+
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        os.getenv("FRONTEND_URL")
+    ]
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 
@@ -21,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'oauth2_provider',
     'drf_yasg',
@@ -31,6 +44,7 @@ INSTALLED_APPS = [
 
 # Middleware
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -39,6 +53,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+OAUTH2_PROVIDER = {
+    "ACCESS_TOKEN_EXPIRE_SECONDS": 36000,  # Tokens expire after 10 hours
+    "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
+    "SCOPES": {"read": "Read scope", "write": "Write scope"},
+    "OAUTH2_VALIDATOR_CLASS": "users.validators.CustomOAuth2Validator",  # Optional customization
+}
 
 ROOT_URLCONF = 'healthcare_system.urls'
 

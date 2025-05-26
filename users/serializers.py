@@ -28,14 +28,26 @@ class PublicPatientRegisterSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     role = serializers.ChoiceField(choices=User.ROLE_CHOICES)
     password = serializers.CharField(write_only=True)
+    
+    phone = serializers.CharField(required=False)
+    address = serializers.CharField(required=False)
+    identification_number = serializers.CharField(required=False)
+    insurance_id = serializers.CharField(required=False)
+    specialization = serializers.CharField(required=False)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'role']
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'role','phone', 'address', 'identification_number', 'specialization','insurance_id']
 
     def create(self, validated_data):
         role = validated_data.pop('role')
         password = validated_data.pop('password')
+
+        phone = validated_data.pop('phone', None)
+        address = validated_data.pop('address', None)
+        identification_number = validated_data.pop('identification_number', None)
+        insurance_id = validated_data.pop('insurance_id', None)
+        specialization = validated_data.pop('specialization', None)
 
         user = User(**validated_data)
         user.set_password(password)
@@ -45,15 +57,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         if role == 'patient':
             Patient.objects.create(
                 user=user,
-                identification_number='TEMP',
-                insurance_id='TEMP'
+                phone=phone or '',
+                address=address or '',
+                identification_number=identification_number or '',
+                insurance_id=insurance_id or ''
             )
         elif role == 'doctor':
-            Doctor.objects.create(
+                Doctor.objects.create(
                 user=user,
-                specialization='General',
+                specialization=specialization or '',
                 available_from='09:00',
                 available_to='17:00'
+
             )
 
         return user
