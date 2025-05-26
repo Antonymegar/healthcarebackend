@@ -2,6 +2,8 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+load_dotenv()
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -59,15 +61,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'healthcare_system.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'defaultdb',
-        'USER': 'avnadmin',
-        'PASSWORD': 'AVNS_gj8ERSTLKJNZcOgFSiS',
-        'HOST': 'careafya-careafya.d.aivencloud.com',
-        'PORT': '22454',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
