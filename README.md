@@ -42,3 +42,5 @@ http://localhost:8000/swagger/
 | `/api/user-profile/`      | GET    | Return current user profile           |
 | `/swagger/`               | GET    | View API documentation                |
 
+## DataBase Schema
+![Database](https://github.com/user-attachments/assets/c1f01551-82a6-4d8c-b1b9-99d08d0dadb2)
