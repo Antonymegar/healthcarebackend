@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
 from core.models import Patient, Doctor, Appointment
+from rest_framework.response import Response
 from .serializers import PatientSerializer, DoctorSerializer, AppointmentSerializer
 from rest_framework.permissions import IsAuthenticated
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope

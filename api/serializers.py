@@ -22,11 +22,15 @@ class DoctorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AppointmentSerializer(serializers.ModelSerializer):
+    doctor_name = serializers.SerializerMethodField()
+    patient_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Appointment
-        fields = '__all__'
+        fields = ['id', 'date', 'time', 'status', 'doctor', 'doctor_name', 'patient', 'patient_name']
 
-    def validate(self, data):
-        if Appointment.objects.filter(doctor=data['doctor'], date=data['date'], time=data['time']).exists():
-            raise serializers.ValidationError("This time slot is already booked.")
-        return data
+    def get_doctor_name(self, obj):
+        return f"Dr. {obj.doctor.user.first_name} {obj.doctor.user.last_name}" if obj.doctor else None
+
+    def get_patient_name(self, obj):
+        return f"{obj.patient.user.first_name} {obj.patient.user.last_name}" if obj.patient else None
