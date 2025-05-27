@@ -38,7 +38,7 @@ http://localhost:8000/swagger/
 | `/api/appointments/`      | GET    | List appointments for logged-in user  |
 | `/api/appointments/`      | POST   | Create new appointment (patient only) |
 | `/api/appointments/<id>/` | PATCH  | Cancel (patient) or Complete (doctor) |
-| `/api/doctors/`           | GET    | List available doctors                |
+| `/api/list-doctors/`           | GET    | List available doctors                |
 | `/api/user-profile/`      | GET    | Return current user profile           |
 | `/swagger/`               | GET    | View API documentation                |
 
