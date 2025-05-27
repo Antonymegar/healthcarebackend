@@ -19,7 +19,7 @@ class CustomOAuth2Validator(OAuth2Validator):
                 'last_name': user.last_name,
             }
 
-            # Include extra info for patients/doctors if needed
+            
             if user.role == 'patient':
                 patient = getattr(user, 'patient', None)
                 if patient:
